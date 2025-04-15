@@ -98,9 +98,8 @@ const Form = () => {
             <input
               type="text"
               name="title"
-              size="lg"
               // placeholder="name@mail.com"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              aclassName=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
@@ -147,13 +146,13 @@ const Form = () => {
               }}
             />
           </div>
-          <button type="submit" className="mt-6" fullWidth>
+          <button className="mt-6" fullWidth>
             Submit
           </button>
         </form>
         <hr/>
-        <RecordList/>
       </Card>      
+      <RecordList/>
     </div>
   );
 }
