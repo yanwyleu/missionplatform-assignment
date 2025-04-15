@@ -64,8 +64,13 @@ const Form = () => {
     setFormData(prevData => ({ ...prevData, [name]: value }))
   }
   
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const { register, handleSubmit, watch, errors } = useForm({
+    mode: "onBlur",
+  });
+
+  const formSubmit = async (formData) => {
+    // e.preventDefault();
+    console.log('submit-data:', formData)
     try {
       const response = await axios.post('http://localhost:4040/tasks', formData, {
         headers: {
@@ -85,12 +90,14 @@ const Form = () => {
         <Typography variant="h4" color="blue-gray">
           Task Input
         </Typography>
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(formSubmit)}>
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Title
             </Typography>
-            <Input
+            <input
+              type="text"
+              name="title"
               size="lg"
               // placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -101,7 +108,9 @@ const Form = () => {
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Description
             </Typography>
-            <Input
+            <input
+              type="text"
+              name="description"
               size="lg"
               // placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -112,7 +121,9 @@ const Form = () => {
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               TaskID
             </Typography>
-            <Input
+            <input
+              type="text"
+              name="taskID"
               // type="password"
               size="lg"
               // placeholder="********"
@@ -124,8 +135,10 @@ const Form = () => {
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               UserID
             </Typography>
-            <Input
+            <input
+              type="text"
               // type="password"
+              name="userID"
               size="lg"
               // placeholder="********"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -134,51 +147,13 @@ const Form = () => {
               }}
             />
           </div>
-          <Button className="mt-6" fullWidth>
+          <button type="submit" className="mt-6" fullWidth>
             Submit
-          </Button>
+          </button>
         </form>
+        <hr/>
         <RecordList/>
       </Card>      
-      {/* <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="firstname">TaskID:</label>
-          <br />
-          <input type="text" name="taskID" id="taskID" onChange={handleChange} value={formData.taskID} required maxLength={20} />
-          <br />
-        </div>
-
-        <div>
-          <label htmlFor="firstname">Title:</label>
-          <br />
-          <input type="text" name="title" id="fname" onChange={handleChange} value={formData.title} required maxLength={20} />
-          <br />
-        </div>
-
-        <div>
-          <label htmlFor="lastname">Description:</label>
-          <br />
-          <input type="text" name="description" id="lname" onChange={handleChange} value={formData.description} required maxLength={20} />
-          <br />
-        </div>
-
-        <div>
-          <label htmlFor="email">Status:</label>
-          <br />
-          <input type="text" name="status" id="status" onChange={handleChange} value={formData.status} required maxLength={40} />
-          <br />
-        </div>
-
-        <div>
-          <label htmlFor="password">User:</label>
-          <br />
-          <input type="text" name="userID" id="userID" onChange={handleChange} value={formData.userID} required maxLength={15} />
-          <br />
-        </div>
-
-        <button>Submit</button>
-
-      </form> */}
     </div>
   );
 }
